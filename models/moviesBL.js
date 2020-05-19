@@ -15,6 +15,13 @@ exports.findAllMovies = () => {
   });
 };
 
+exports.getMovies = async () => {
+  const response = await moviesDAL.getAll();
+  const movies = response.data.slice(0, 10);
+  return movies;
+};
+
+///
 exports.insertMovies = async () => {
   const response = await moviesDAL.getAll();
   const movies = response.data.slice(0, 10);

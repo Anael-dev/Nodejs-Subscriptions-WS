@@ -14,6 +14,12 @@ exports.findAllMembers = () => {
   });
 };
 
+exports.getMembers = async () => {
+  const response = await membersDAL.getAll();
+  return response.data;
+};
+
+///
 exports.insertMembers = async () => {
   const response = await membersDAL.getAll();
   const users = response.data;
