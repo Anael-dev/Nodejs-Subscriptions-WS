@@ -4,7 +4,7 @@
 
 ## Installation
 
-- You will need<a href="https://nodejs.org/en/download/" target="_blank">**Node.js**</a> installed in your environement.
+- You will need is <a href="https://nodejs.org/en/download/" target="_blank">**Node.js**</a> installed in your environement.
 
 ### Clone
 
@@ -28,4 +28,4 @@ $ npm start
 
 ## Usage
 
-- Now after the WS is ready, you should run the <a href="https://github.com/Anael-dev/Nodejs-Cinema-Website" target="_blank">**WEB SITE**</a>
+- Now after the WS is ready, you should run the <a href="https://github.com/Anael-dev/Nodejs-Cinema-Website" target="_blank">**WEB SITE Repo**</a>
