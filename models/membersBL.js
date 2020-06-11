@@ -1,8 +1,8 @@
 const membersDAL = require("../DAL/membersDAL");
 
-const Member = require("../models/membersModel");
+const Member = require("./memberModel");
 
-exports.findAllMembers = () => {
+exports.getAll = () => {
   return new Promise((resolve, reject) => {
     Member.find({}, (err, data) => {
       if (err) {
@@ -16,29 +16,54 @@ exports.findAllMembers = () => {
 
 exports.getMembers = async () => {
   const response = await membersDAL.getAll();
-  return response.data;
+  return response;
 };
 
-///
-exports.insertMembers = async () => {
-  const response = await membersDAL.getAll();
-  const users = response.data;
-
+exports.getById = (id) => {
   return new Promise((resolve, reject) => {
-    users.forEach((x) => {
-      const member = new Member({
-        Name: x.name,
-        Email: x.email,
-        City: x.address.city,
-      });
+    Member.findById(id, function (err, member) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(member);
+      }
+    });
+  });
+};
 
-      member.save((err) => {
-        if (err) {
-          reject(err);
-        } else {
-          resolve("Member created!");
-        }
-      });
+exports.deleteMember = (id) => {
+  return new Promise((resolve, reject) => {
+    Member.findByIdAndDelete(id, function (err) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve("deleted");
+      }
+    });
+  });
+};
+
+exports.postMember = (reqBody) => {
+  const newMember = new Member(reqBody);
+  return new Promise((resolve, reject) => {
+    newMember.save(function (err, data) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(data);
+      }
+    });
+  });
+};
+
+exports.editMember = (id, reqBody) => {
+  return new Promise((resolve, reject) => {
+    Member.findByIdAndUpdate(id, reqBody, function (err, member) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(member);
+      }
     });
   });
 };

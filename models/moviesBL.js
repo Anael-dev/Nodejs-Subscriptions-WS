@@ -1,11 +1,54 @@
 const mongoose = require("mongoose");
 const moviesDAL = require("../DAL/moviesDAL");
 
-const Movie = require("../models/moviesModel");
+const Movie = require("./movieModel");
 
-exports.findAllMovies = () => {
+exports.getMovies = async () => {
+  const response = await moviesDAL.getAll();
+  const movies = response.slice(0, 10);
+  return movies;
+};
+
+exports.getAll = () => {
   return new Promise((resolve, reject) => {
-    Movie.find({}, (err, data) => {
+    Movie.find({}, function (err, movies) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(movies);
+      }
+    });
+  });
+};
+
+exports.getById = (id) => {
+  return new Promise((resolve, reject) => {
+    Movie.findById(id, function (err, movie) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(movie);
+      }
+    });
+  });
+};
+
+exports.deleteMovie = (id) => {
+  return new Promise((resolve, reject) => {
+    Movie.findByIdAndDelete(id, function (err) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve("deleted");
+      }
+    });
+  });
+};
+
+exports.postMovie = (reqBody) => {
+  const newMovie = new Movie(reqBody);
+  return new Promise((resolve, reject) => {
+    newMovie.save(function (err, data) {
       if (err) {
         reject(err);
       } else {
@@ -15,35 +58,14 @@ exports.findAllMovies = () => {
   });
 };
 
-exports.getMovies = async () => {
-  const response = await moviesDAL.getAll();
-  const movies = response.data.slice(0, 10);
-  return movies;
-};
-
-///
-exports.insertMovies = async () => {
-  const response = await moviesDAL.getAll();
-  const movies = response.data.slice(0, 10);
-
+exports.editMovie = (id, reqBody) => {
   return new Promise((resolve, reject) => {
-    movies.forEach((x) => {
-      const movie = new Movie({
-        Name: x.name,
-        Genres: x.genres,
-        Image: x.image.medium,
-        Premiered: x.premiered,
-      });
-
-      movie.save((err) => {
-        if (err) {
-          //   return res.send(err);
-          reject(err);
-        } else {
-          //   return res.send("Member created!");
-          resolve("Movie created!");
-        }
-      });
+    Movie.findByIdAndUpdate(id, reqBody, function (err, movie) {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(movie);
+      }
     });
   });
 };
