@@ -2,9 +2,12 @@
 
 > Node based REST api that provides services/data about members (subscriptions), movies and the movies the members watched.
 
+> Created using <a href="https://www.npmjs.com/package/express" target="_blank">**Express**</a> and <a href="https://www.npmjs.com/package/mongoose" target="_blank">**Mongoose**</a> layer
+
+
 ## Installation
 
-- You will need is <a href="https://nodejs.org/en/download/" target="_blank">**Node.js**</a> installed in your environement.
+- You will need a <a href="https://nodejs.org/en/download/" target="_blank">**Node.js**</a> installed in your environement.
 
 ### Clone
 
